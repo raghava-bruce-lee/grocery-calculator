@@ -1,0 +1,105 @@
+<div class="title">
+  <h1>Grocery Calculator</h1>
+</div>
+
+<div class="container">
+  <mat-tab-group >
+    <mat-tab label="calculater">
+      <div class="border container">
+        <form class="container" ngForm name="form" #form="ngForm" >
+          <table border="0px" align="center">
+            <tr>
+              <td width="50%">Grocery item</td>
+              <td>
+                <mat-form-field hideRequiredMarker>
+                  <mat-label>select item</mat-label>
+                  <mat-select required ngModel name="itemSelected" #itemSelected="ngModel" [(ngModel)]="selected_item_value" (change)="selectedItemHandler($event)">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let selectedItem of sortedGroceryItems" [value]="selectedItem.groceryitem" >{{selectedItem.groceryitem}}</mat-option>
+                  </mat-select>
+                  <div class="alert alert-danger" *ngIf="itemSelected.touched && itemSelected.invalid">Please fill this field...!!</div>
+                </mat-form-field>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Metrics</td>
+              <td>
+
+                <button type="button" mat-raised-button color="accent" (click)="getMetrics()">Get Metrics</button>
+
+                <mat-form-field class="metrix" hideRequiredMarker>
+                  <input type="text" placeholder="click the button" required matInput value="{{ auto_metrics_value }}" readonly>
+                </mat-form-field>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>Quantity</td>
+              <td>
+                <mat-form-field hideRequiredMarker>
+                  <input type="number" placeholder="quantity you have" min="0" matInput required ngModel name="quantity" #quantity="ngModel" [(ngModel)]="quantity_value" (change)=gettingQuantityValue($event)>
+                  <mat-hint align="end">according to the above metrics</mat-hint>
+                  <div class="alert alert-danger" *ngIf="quantity.touched && quantity.invalid">Please fill this field...!!</div>
+                </mat-form-field>
+
+              </td>
+            </tr>
+
+            <tr>
+              <td>Person Count</td>
+              <td>
+                <mat-form-field hideRequiredMarker>
+                  <input type="number" min="1" placeholder="persons" matInput required ngModel name="personCount" #personCount="ngModel" [(ngModel)]="person_count_value" (change)="gettingPersonCount($event)">
+                  <div class="alert alert-danger" *ngIf="personCount.touched && personCount.invalid">Please fill this field...!!</div>
+                </mat-form-field>
+              </td>
+            </tr>
+
+            <tr>
+              <td><button type="submit" mat-raised-button color="primary" (click)="calculate()" [disabled]="form.invalid">calculate</button></td>
+              <td><button type="reset" mat-raised-button color="warn" (click)="reload()">clear</button></td>
+
+            <tr>
+              <td class="days">Estimated Days : </td>
+              <td>
+                <mat-form-field>
+                  <input class="days-input" type="text" matInput value="{{ days }}" readonly>
+                  <mat-hint align="end">Result</mat-hint>
+                </mat-form-field>
+              </td>
+            </tr>
+
+          </table>
+
+        </form>
+        </div>
+    </mat-tab>
+    <mat-tab label="About & How to use">
+      <div class="background">
+        <div class="about">
+          <h1>About</h1>
+          <p>
+            <b>Grocery Calculator</b> is used to estimate the grocery items in your home, how many days that it will be last long...!!!
+          </p>
+        </div>
+        <div class="how-to-use">
+          <h1>How to use</h1>
+          <p>
+            <b>step 1:</b>Select the Grocery item from the dropdown.<br><br>
+            <b>step 2:</b>Click on the "Get Metrics" button to get the metrics of your selected grocery item.
+            After clicing the button, you can able to see the respective metrics of the selected grocery item in the followed field.<br><br>
+            <b>step 3:</b>Then in the next field,
+            Enter the quantity that how much you were having of your selected item according to the displayed metrics.<br><br>
+            <b>step 4:</b>Then in the next field,
+            Enter how many members were in your home.<br><br>
+            <b>step 5:</b>Then click on the calculate button to get the estimation days for your selected grocery item...!!
+          </p>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+<router-outlet></router-outlet>
