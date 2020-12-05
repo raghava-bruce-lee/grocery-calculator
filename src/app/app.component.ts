@@ -20,7 +20,9 @@ export class AppComponent {
   days : any;
   sortedGroceryItems: any;
 
-  url = 'https://script.google.com/macros/s/AKfycbzs5fSlNwSws_KvcGglhscY50uGZRywD_Tajmx1RzMzEGR1xq6Q/exec';
+  description: any;
+
+  url = 'https://script.google.com/macros/s/AKfycbxl-6oZvyWn1Q6y3oB5dSIzBqOoVXCJuUAaAS27cCpWsDOARVbD/exec';
   groceryData : any;
 
   constructor (private http: HttpClient) {
@@ -101,12 +103,15 @@ export class AppComponent {
           }
       }
     }
+
+    this.description = ' Note: The above Estimated Days is calculated by the estimated usage of ' + ' "' + this.selected_item_value +
+                                '" ' + ' by one person per day is: ' + qpd +" " + this.auto_metrics_value;
   }
 
   }
 
    reload(){
-     /*window.location.reload();*/
+     window.location.reload();
    }
 }
 
